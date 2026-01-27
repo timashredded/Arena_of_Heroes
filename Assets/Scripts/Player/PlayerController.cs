@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private Animator animator;
     [Header("Movement")]
     public float moveSpeed = 4.2f;
     public float acceleration = 12f;
@@ -14,12 +15,16 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
+
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
+        animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input = input.normalized;
