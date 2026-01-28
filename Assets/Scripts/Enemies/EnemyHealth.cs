@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public bool IsDead => isDead;
+
     public int maxHealth = 50;
     private int currentHealth;
 
@@ -35,4 +37,5 @@ public class EnemyHealth : MonoBehaviour
 
         Destroy(gameObject, 1.2f); // под длину Death анимации
     }
+
 }
