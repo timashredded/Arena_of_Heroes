@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    private bool isAttacking;
     private Animator animator;
+
     [Header("Movement")]
     public float moveSpeed = 4.2f;
     public float acceleration = 12f;
@@ -16,37 +18,81 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
     {
-        animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+        // Атака ПКМ
+        if (Input.GetMouseButtonDown(1) && !isAttacking)
+        {
+            Attack();
+        }
 
+        // Ввод
         input.x = Input.GetAxisRaw("Horizontal");
         input.y = Input.GetAxisRaw("Vertical");
         input = input.normalized;
+        HandleMovementFlip();
 
-        HandleFlip();
+
+        // Скорость для анимации
+        animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+
     }
 
     void FixedUpdate()
     {
+        // ❗ Блок движения во время атаки
+        if (isAttacking) return;
+
         Vector2 targetVelocity = input * moveSpeed;
         currentVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
         rb.linearVelocity = currentVelocity;
     }
 
-    void HandleFlip()
+    void Attack()
     {
-        // Если идём вправо
+        isAttacking = true;
+
+        rb.linearVelocity = Vector2.zero;
+
+        RotateToMouse();
+
+        animator.SetTrigger("Attack");
+
+        GetComponentInChildren<PlayerAttack>().EnableHitbox();
+
+        Invoke(nameof(EndAttack), 0.35f);
+    }
+
+
+    void EndAttack()
+    {
+        GetComponentInChildren<PlayerAttack>().DisableHitbox();
+        isAttacking = false;
+    }
+
+
+    void RotateToMouse()
+    {
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 direction = mousePos - transform.position;
+
+        if (direction.x > 0)
+            spriteRenderer.flipX = false;
+        else if (direction.x < 0)
+            spriteRenderer.flipX = true;
+    }
+    void HandleMovementFlip()
+    {
+        if (isAttacking) return;
+
         if (input.x > 0.1f)
             spriteRenderer.flipX = false;
-
-        // Если идём влево
         else if (input.x < -0.1f)
             spriteRenderer.flipX = true;
     }
+
 }

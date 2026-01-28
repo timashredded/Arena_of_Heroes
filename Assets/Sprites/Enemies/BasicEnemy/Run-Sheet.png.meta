@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cc2a3cb16aa707943be2491dc9d329a1
+guid: ffa609024e2b35645b6109b4c1eb0ced
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -20,12 +20,6 @@ TextureImporter:
   - first:
       213: -4675099393403972317
     second: Run-Sheet_5
-  - first:
-      213: 4819010865800974824
-    second: Run-Sheet_6
-  - first:
-      213: 2581718483139709744
-    second: Run-Sheet_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -118,19 +112,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -150,10 +131,10 @@ TextureImporter:
       name: Run-Sheet_0
       rect:
         serializedVersion: 2
-        x: 27
-        y: 12
-        width: 34
-        height: 51
+        x: 3
+        y: 0
+        width: 41
+        height: 30
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +153,10 @@ TextureImporter:
       name: Run-Sheet_1
       rect:
         serializedVersion: 2
-        x: 105
-        y: 13
-        width: 36
-        height: 51
+        x: 51
+        y: 1
+        width: 41
+        height: 30
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -194,10 +175,10 @@ TextureImporter:
       name: Run-Sheet_2
       rect:
         serializedVersion: 2
-        x: 189
-        y: 12
-        width: 32
-        height: 51
+        x: 99
+        y: 0
+        width: 41
+        height: 30
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -216,10 +197,10 @@ TextureImporter:
       name: Run-Sheet_3
       rect:
         serializedVersion: 2
-        x: 271
-        y: 12
-        width: 30
-        height: 51
+        x: 147
+        y: 0
+        width: 41
+        height: 28
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -238,10 +219,10 @@ TextureImporter:
       name: Run-Sheet_4
       rect:
         serializedVersion: 2
-        x: 347
-        y: 13
-        width: 34
-        height: 51
+        x: 195
+        y: 0
+        width: 40
+        height: 27
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -260,10 +241,10 @@ TextureImporter:
       name: Run-Sheet_5
       rect:
         serializedVersion: 2
-        x: 427
-        y: 14
-        width: 34
-        height: 51
+        x: 243
+        y: 0
+        width: 41
+        height: 28
       alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -278,55 +259,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_6
-      rect:
-        serializedVersion: 2
-        x: 511
-        y: 11
-        width: 31
-        height: 51
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8e190d8a9d090e240800000000000000
-      internalID: 4819010865800974824
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Run-Sheet_7
-      rect:
-        serializedVersion: 2
-        x: 590
-        y: 12
-        width: 31
-        height: 51
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 03b4a99284b14d320800000000000000
-      internalID: 2581718483139709744
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 27aa2dfb298110c45909770b1b7d02cd
+    spriteID: ee2ff0ff8a449ed4dbec94aa1eb43300
     internalID: 0
     vertices: []
     indices: 
@@ -342,8 +279,6 @@ TextureImporter:
       Run-Sheet_3: 4002533974423468926
       Run-Sheet_4: 2964676863673857177
       Run-Sheet_5: -4675099393403972317
-      Run-Sheet_6: 4819010865800974824
-      Run-Sheet_7: 2581718483139709744
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
