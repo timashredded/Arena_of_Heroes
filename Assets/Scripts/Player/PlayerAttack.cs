@@ -5,15 +5,15 @@ public class PlayerAttack : MonoBehaviour
     public int damage = 20;
 
     private Collider2D hitbox;
-    private BoxCollider2D boxCollider;
+    private CircleCollider2D circleCollider;
     private SpriteRenderer playerSprite;
 
     void Start()
     {
         playerSprite = GetComponentInParent<SpriteRenderer>();
 
-        boxCollider = GetComponent<BoxCollider2D>();
-        hitbox = boxCollider;
+        circleCollider = GetComponent<CircleCollider2D>();
+        hitbox = circleCollider;
 
         hitbox.enabled = false;
     }
@@ -25,20 +25,21 @@ public class PlayerAttack : MonoBehaviour
 
     void FlipHitbox()
     {
-        Vector2 offset = boxCollider.offset;
+        Vector2 offset = circleCollider.offset;
 
         if (playerSprite.flipX)
             offset.x = -Mathf.Abs(offset.x);
         else
             offset.x = Mathf.Abs(offset.x);
 
-        boxCollider.offset = offset;
+        circleCollider.offset = offset;
     }
 
     public void EnableHitbox()
     {
         hitbox.enabled = true;
     }
+
 
     public void DisableHitbox()
     {
@@ -47,7 +48,15 @@ public class PlayerAttack : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Enemy"))
+        PlayerController player = GetComponentInParent<PlayerController>();
+
+        if (player == null) return;
+
+        Transform target = player.GetCurrentTarget();
+
+        if (target == null) return;
+
+        if (other.transform == target)
         {
             EnemyHealth enemy = other.GetComponent<EnemyHealth>();
 

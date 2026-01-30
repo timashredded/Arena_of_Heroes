@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
+    public int CurrentHealth => currentHealth;
+    public int MaxHealth => maxHealth;
+
     public bool IsDead => isDead;
 
     public int maxHealth = 50;
@@ -35,7 +38,33 @@ public class EnemyHealth : MonoBehaviour
 
         animator.SetTrigger("Die");
 
-        Destroy(gameObject, 1.2f); // под длину Death анимации
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ AI
+        EnemyAI ai = GetComponent<EnemyAI>();
+        if (ai != null)
+            ai.enabled = false;
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.simulated = false;
+        }
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+        Collider2D col = GetComponent<Collider2D>();
+        if (col != null)
+            col.enabled = false;
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅ HP bar
+        Transform canvas = transform.Find("Canvas");
+        if (canvas != null)
+            canvas.gameObject.SetActive(false);
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        Destroy(gameObject, 1.2f);
     }
+
+
 
 }
