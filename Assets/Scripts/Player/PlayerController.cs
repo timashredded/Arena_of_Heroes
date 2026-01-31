@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Combat")]
+    public float attackRange = 1.2f;
+    public float attackCooldown = 0.8f;
+
+    private float lastAttackTime;
+
     private Transform lastTarget;
 
     private Transform currentTarget;
@@ -44,6 +50,9 @@ public class PlayerController : MonoBehaviour
 
         // Скорость для анимации
         animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+
+        HandleAutoAttack();
+
 
     }
 
@@ -102,7 +111,6 @@ public class PlayerController : MonoBehaviour
     void SelectTarget()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
         RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
 
         Debug.Log("Ray hit: " + (hit.collider != null ? hit.collider.name : "NULL"));
@@ -117,23 +125,12 @@ public class PlayerController : MonoBehaviour
             }
 
             currentTarget = hit.collider.transform;
-
-            float distance = Vector2.Distance(transform.position, currentTarget.position);
-
-            if (distance > 1.2f) // радиус удара
-            {
-                return;
-            }
-
-
             lastTarget = currentTarget;
 
             HighlightTarget(currentTarget);
-
-            if (!isAttacking)
-                Attack();
         }
     }
+
 
 
     void HighlightTarget(Transform target)
@@ -145,6 +142,7 @@ public class PlayerController : MonoBehaviour
             highlight.Show();
         }
     }
+
     public Transform GetCurrentTarget()
     {
         return currentTarget;
@@ -159,6 +157,39 @@ public class PlayerController : MonoBehaviour
             spriteRenderer.flipX = false;
         else if (direction.x < 0)
             spriteRenderer.flipX = true;
+    }
+    void HandleAutoAttack()
+    {
+        if (currentTarget == null) return;
+
+        EnemyHealth enemyHealth = currentTarget.GetComponent<EnemyHealth>();
+        if (enemyHealth == null || enemyHealth.IsDead)
+        {
+            ClearTarget();
+            return;
+        }
+
+        float distance = Vector2.Distance(transform.position, currentTarget.position);
+
+        if (distance > attackRange)
+            return;
+
+        if (Time.time - lastAttackTime >= attackCooldown && !isAttacking)
+        {
+            lastAttackTime = Time.time;
+            Attack();
+        }
+    }
+    void ClearTarget()
+    {
+        if (currentTarget != null)
+        {
+            EnemyHighlight highlight = currentTarget.GetComponent<EnemyHighlight>();
+            if (highlight != null)
+                highlight.Hide();
+        }
+
+        currentTarget = null;
     }
 
 
