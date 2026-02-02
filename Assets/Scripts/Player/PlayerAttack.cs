@@ -48,22 +48,22 @@ public class PlayerAttack : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        PlayerController player = GetComponentInParent<PlayerController>();
+        if (!other.CompareTag("Enemy")) return;
 
-        if (player == null) return;
+        Transform currentTarget = GetComponentInParent<PlayerController>().GetCurrentTarget();
 
-        Transform target = player.GetCurrentTarget();
+        if (currentTarget == null) return;
 
-        if (target == null) return;
+        if (other.transform != currentTarget) return;
 
-        if (other.transform == target)
+        EnemyHealth enemy = other.GetComponent<EnemyHealth>();
+
+        if (enemy != null)
         {
-            EnemyHealth enemy = other.GetComponent<EnemyHealth>();
-
-            if (enemy != null)
-            {
-                enemy.TakeDamage(damage);
-            }
+            enemy.TakeDamage(damage);
         }
     }
+
+
+
 }

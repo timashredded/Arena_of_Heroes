@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
 
 
         // Скорость для анимации
-        animator.SetFloat("Speed", rb.linearVelocity.magnitude);
+        animator.SetFloat("Speed", input.magnitude);
 
         HandleAutoAttack();
 
@@ -58,13 +58,54 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // ❗ Блок движения во время атаки
         if (isAttacking) return;
+        if (input == Vector2.zero) return;
 
-        Vector2 targetVelocity = input * moveSpeed;
-        currentVelocity = Vector2.Lerp(rb.linearVelocity, targetVelocity, acceleration * Time.fixedDeltaTime);
-        rb.linearVelocity = currentVelocity;
+        Vector2 move = input.normalized * moveSpeed * Time.fixedDeltaTime;
+
+        CapsuleCollider2D col = GetComponent<CapsuleCollider2D>();
+
+        RaycastHit2D hit = Physics2D.CapsuleCast(
+            rb.position,
+             col.size,
+             CapsuleDirection2D.Vertical,
+             0f,
+             move.normalized,
+             move.magnitude + 0.05f,
+             LayerMask.GetMask("Enemy")
+        );
+
+        // Нет препятствия — идём нормально
+        if (hit.collider == null)
+        {
+            rb.MovePosition(rb.position + move);
+        }
+        else
+        {
+            Vector2 toEnemy = (hit.collider.transform.position - transform.position).normalized;
+
+            float dot = Vector2.Dot(move.normalized, toEnemy);
+
+            // Если реально бежим В сторону врага
+            if (dot > 0.3f)
+            {
+                Vector2 normal = hit.normal;
+                Vector2 slideDir = move - Vector2.Dot(move, normal) * normal;
+
+                rb.MovePosition(rb.position + slideDir);
+            }
+            else
+            {
+                // Разрешаем отход
+                rb.MovePosition(rb.position + move);
+            }
+        }
+
     }
+
+
+
+
 
     void Attack()
     {

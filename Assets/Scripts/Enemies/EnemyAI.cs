@@ -10,6 +10,8 @@ public class EnemyAI : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
+    private Vector2 moveDirection;
+
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
@@ -17,6 +19,13 @@ public class EnemyAI : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void Update()
+    {
+        if (player == null) return;
+
+        moveDirection = (player.position - transform.position).normalized;
     }
 
     void FixedUpdate()
@@ -27,31 +36,31 @@ public class EnemyAI : MonoBehaviour
 
         if (distance > stopDistance)
         {
-            MoveToPlayer();
+            Move();
         }
         else
         {
-            StopMoving();
+            Stop();
         }
     }
 
-    void MoveToPlayer()
+    void Move()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
-
-        rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
 
         animator.SetFloat("Speed", moveSpeed);
 
-        // Поворот к игроку
-        if (direction.x > 0)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        if (moveDirection.x > 0)
             spriteRenderer.flipX = true;
-        else if (direction.x < 0)
+        else if (moveDirection.x < 0)
             spriteRenderer.flipX = false;
     }
 
-    void StopMoving()
+    void Stop()
     {
         animator.SetFloat("Speed", 0f);
+        rb.linearVelocity = Vector2.zero;
     }
+
 }
