@@ -63,45 +63,40 @@ public class PlayerController : MonoBehaviour
 
         Vector2 move = input.normalized * moveSpeed * Time.fixedDeltaTime;
 
-        CapsuleCollider2D col = GetComponent<CapsuleCollider2D>();
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.useTriggers = false;
+        filter.SetLayerMask(LayerMask.GetMask("Enemy", "Walls"));
 
-        RaycastHit2D hit = Physics2D.CapsuleCast(
-            rb.position,
-             col.size,
-             CapsuleDirection2D.Vertical,
-             0f,
-             move.normalized,
-             move.magnitude + 0.05f,
-             LayerMask.GetMask("Enemy")
-        );
+        RaycastHit2D[] hits = new RaycastHit2D[4];
 
-        // Нет препятствия — идём нормально
-        if (hit.collider == null)
+        Vector2 position = rb.position;
+
+        // ---- MOVE X ----
+        if (move.x != 0)
         {
-            rb.MovePosition(rb.position + move);
-        }
-        else
-        {
-            Vector2 toEnemy = (hit.collider.transform.position - transform.position).normalized;
+            Vector2 moveX = new Vector2(move.x, 0);
 
-            float dot = Vector2.Dot(move.normalized, toEnemy);
+            int countX = rb.Cast(moveX.normalized, filter, hits, Mathf.Abs(move.x) + 0.05f);
 
-            // Если реально бежим В сторону врага
-            if (dot > 0.3f)
-            {
-                Vector2 normal = hit.normal;
-                Vector2 slideDir = move - Vector2.Dot(move, normal) * normal;
-
-                rb.MovePosition(rb.position + slideDir);
-            }
-            else
-            {
-                // Разрешаем отход
-                rb.MovePosition(rb.position + move);
-            }
+            if (countX == 0)
+                position.x += move.x;
         }
 
+        // ---- MOVE Y ----
+        if (move.y != 0)
+        {
+            Vector2 moveY = new Vector2(0, move.y);
+
+            int countY = rb.Cast(moveY.normalized, filter, hits, Mathf.Abs(move.y) + 0.05f);
+
+            if (countY == 0)
+                position.y += move.y;
+        }
+
+        rb.MovePosition(position);
     }
+
+
 
 
 

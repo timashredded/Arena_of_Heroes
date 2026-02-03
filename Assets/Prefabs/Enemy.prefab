@@ -265,7 +265,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
   m_MaskInteraction: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cab73ea84bfbbe49b95d6622287364d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySeparation
-  radius: 0.3
+  radius: 0.2
   force: 0.3
 --- !u!1 &4998747366064508613
 GameObject:
