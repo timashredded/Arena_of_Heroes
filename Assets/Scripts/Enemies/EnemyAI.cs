@@ -25,37 +25,16 @@ public class EnemyAI : MonoBehaviour
     {
         if (player == null) return;
 
-        moveDirection = (player.position - transform.position).normalized;
-    }
+        Vector2 dir = player.position - transform.position;
 
-    void FixedUpdate()
-    {
-        if (player == null) return;
+        animator.SetFloat("Speed", dir.magnitude);
 
-        float distance = Vector2.Distance(transform.position, player.position);
-
-        if (distance > stopDistance)
-        {
-            Move();
-        }
-        else
-        {
-            Stop();
-        }
-    }
-
-    void Move()
-    {
-        rb.MovePosition(rb.position + moveDirection * moveSpeed * Time.fixedDeltaTime);
-
-        animator.SetFloat("Speed", moveSpeed);
-
-        // ������� � ������
-        if (moveDirection.x > 0)
+        if (dir.x > 0)
             spriteRenderer.flipX = true;
-        else if (moveDirection.x < 0)
+        else if (dir.x < 0)
             spriteRenderer.flipX = false;
     }
+
 
     void Stop()
     {
