@@ -101,13 +101,13 @@ GameObject:
   m_Component:
   - component: {fileID: 5744795321625386189}
   - component: {fileID: 386347028478401096}
+  - component: {fileID: 2914174520897837365}
   - component: {fileID: 6027525439694492734}
   - component: {fileID: 2451990997494816512}
   - component: {fileID: 5617366689571071897}
   - component: {fileID: 4230066110887657708}
   - component: {fileID: -8516681666790535854}
-  - component: {fileID: -6770522366364241308}
-  - component: {fileID: 617832834363688032}
+  - component: {fileID: -8289172510076335575}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
@@ -159,6 +159,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!195 &2914174520897837365
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643523251027446940}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.1
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0.0001
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
 --- !u!70 &6027525439694492734
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -302,7 +324,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0361cfd26d017444ea459c6cc4d32067, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHighlight
---- !u!114 &-6770522366364241308
+--- !u!114 &-8289172510076335575
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -311,21 +333,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1643523251027446940}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2810b6deed558a4409de80ec7b16e854, type: 3}
+  m_Script: {fileID: 11500000, guid: e6fb56e66a08d4141adc6bb797484826, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemyManualTarget
---- !u!114 &617832834363688032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1643523251027446940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6ee1968645a37041a55b57c9ba62aeb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ForceDestination
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+  attackRange: 1.5
+  attackCooldown: 1.2
+  damage: 10
+  aggroRange: 8
 --- !u!1 &4998747366064508613
 GameObject:
   m_ObjectHideFlags: 0

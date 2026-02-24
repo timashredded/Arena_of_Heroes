@@ -38,11 +38,6 @@ public class EnemyHealth : MonoBehaviour
 
         animator.SetTrigger("Die");
 
-        // ���������� AI
-        EnemyAI ai = GetComponent<EnemyAI>();
-        if (ai != null)
-            ai.enabled = false;
-
         // ���������� ������
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
